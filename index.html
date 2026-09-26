@@ -1,259 +1,131 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STEM Lab — Электрическая цепь</title>
+<title>STEM Lab — Виртуальная лаборатория</title>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  }
-  
-  body {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: white;
-    min-height: 100vh;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
-    text-align: center;
-    background: linear-gradient(90deg, #ffd700, #ff8c00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .subtitle {
-    color: #aaa;
-    font-size: 14px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .lab {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 20px;
-    max-width: 750px;
-    width: 100%;
-    backdrop-filter: blur(10px);
-  }
-  
-  canvas {
-    background: #0a0a1a;
-    border-radius: 15px;
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-    height: auto;
-    max-width: 650px;
-  }
-  
-  .controls {
-    margin-top: 20px;
-    display: grid;
-    gap: 15px;
-  }
-  
-  .control-group {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px 15px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  .control-group label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    margin-bottom: 8px;
-    color: #ccc;
-  }
-  
-  .control-group label span {
-    color: #ffd700;
-    font-weight: bold;
-  }
-  
-  input[type="range"] {
-    width: 100%;
-    height: 6px;
-    -webkit-appearance: none;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    outline: none;
-  }
-  
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: linear-gradient(135deg, #ffd700, #ff8c00);
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  }
-  
-  .buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    flex-wrap: wrap;
-  }
-  
-  button {
-    flex: 1;
-    min-width: 140px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .btn-primary {
-    background: linear-gradient(135deg, #ffd700, #ff8c00);
-    color: #1a1a2e;
-  }
-  
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-  }
-  
-  .btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-  
-  .info {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .info-card {
-    background: rgba(255, 215, 0, 0.1);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 12px;
-    padding: 12px;
-    text-align: center;
-  }
-  
-  .info-card .value {
-    font-size: 22px;
-    font-weight: bold;
-    color: #ffd700;
-  }
-  
-  .info-card .label {
-    font-size: 11px;
-    color: #aaa;
-    margin-top: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  .formula {
-    text-align: center;
-    margin-top: 15px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    font-family: 'Courier New', monospace;
-    color: #ffd700;
-    font-size: 16px;
-  }
-  
-  .task {
-    background: rgba(0, 210, 255, 0.1);
-    border: 1px solid rgba(0, 210, 255, 0.3);
-    border-radius: 12px;
-    padding: 12px 15px;
-    margin-top: 15px;
-    font-size: 13px;
-    color: #00d2ff;
-  }
-  
-  @media (max-width: 600px) {
-    h1 { font-size: 22px; }
-    .info { grid-template-columns: repeat(3, 1fr); }
-    .info-card .value { font-size: 18px; }
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  body { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: white; min-height: 100vh; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+  h1 { font-size: 28px; margin-bottom: 8px; text-align: center; background: linear-gradient(90deg, #00d2ff, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { color: #aaa; font-size: 14px; margin-bottom: 20px; text-align: center; }
+  .tabs { display: flex; gap: 10px; margin-bottom: 20px; background: rgba(255,255,255,0.05); padding: 6px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); }
+  .tab { padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 600; color: #aaa; transition: all 0.2s; border: none; background: transparent; }
+  .tab.active { background: linear-gradient(135deg, #00d2ff, #3a7bd5); color: white; box-shadow: 0 0 15px rgba(0,210,255,0.4); }
+  .lab { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; max-width: 750px; width: 100%; backdrop-filter: blur(10px); display: none; }
+  .lab.active { display: block; }
+  canvas { background: #0a0a1a; border-radius: 15px; display: block; margin: 0 auto; width: 100%; height: auto; max-width: 650px; }
+  .controls { margin-top: 20px; display: grid; gap: 15px; }
+  .control-group { background: rgba(255,255,255,0.05); padding: 12px 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
+  .control-group label { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; color: #ccc; }
+  .control-group label span { font-weight: bold; }
+  input[type="range"] { width: 100%; height: 6px; -webkit-appearance: none; background: rgba(255,255,255,0.1); border-radius: 5px; outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: linear-gradient(135deg, #00d2ff, #3a7bd5); border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px rgba(0,210,255,0.5); }
+  .yellow-slider::-webkit-slider-thumb { background: linear-gradient(135deg, #ffd700, #ff8c00); box-shadow: 0 0 10px rgba(255,215,0,0.5); }
+  .buttons { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+  button.action { flex: 1; min-width: 120px; padding: 12px 20px; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .btn-blue { background: linear-gradient(135deg, #00d2ff, #3a7bd5); color: white; }
+  .btn-blue:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,210,255,0.4); }
+  .btn-yellow { background: linear-gradient(135deg, #ffd700, #ff8c00); color: #1a1a2e; }
+  .btn-yellow:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255,215,0,0.4); }
+  .btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+  .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+  .info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+  .info-card { background: rgba(0,210,255,0.1); border: 1px solid rgba(0,210,255,0.3); border-radius: 12px; padding: 12px; text-align: center; }
+  .info-card.yellow { background: rgba(255,215,0,0.1); border-color: rgba(255,215,0,0.3); }
+  .info-card .value { font-size: 22px; font-weight: bold; color: #00d2ff; }
+  .info-card.yellow .value { color: #ffd700; }
+  .info-card .label { font-size: 11px; color: #aaa; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .formula { text-align: center; margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 12px; font-family: 'Courier New', monospace; color: #00d2ff; font-size: 16px; }
+  .formula.yellow { color: #ffd700; }
+  .task { background: rgba(0,210,255,0.1); border: 1px solid rgba(0,210,255,0.3); border-radius: 12px; padding: 12px 15px; margin-top: 15px; font-size: 13px; color: #00d2ff; }
+  .task.yellow { background: rgba(255,215,0,0.1); border-color: rgba(255,215,0,0.3); color: #ffd700; }
+  @media (max-width: 600px) { h1 { font-size: 20px; } .info-card .value { font-size: 16px; } .tab { padding: 8px 12px; font-size: 12px; } }
 </style>
 </head>
 <body>
 
-<h1>⚡ STEM Lab</h1>
-<p class="subtitle">Интерактивный симулятор электрической цепи — физика без лаборатории</p>
+<h1>🔬 STEM Lab</h1>
+<p class="subtitle">Виртуальная лаборатория — наука без оборудования</p>
 
-<div class="lab">
-  <canvas id="canvas" width="650" height="400"></canvas>
-  
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('chain')">⚡ Электрическая цепь</button>
+  <button class="tab" onclick="switchTab('pendulum')">⏱ Маятник</button>
+</div>
+
+<!-- СИМУЛЯТОР 1: ЭЛЕКТРИЧЕСКАЯ ЦЕПЬ -->
+<div class="lab active" id="lab-chain">
+  <canvas id="canvas-chain" width="650" height="400"></canvas>
   <div class="controls">
     <div class="control-group">
-      <label>Напряжение (U) <span id="voltageValue">6 В</span></label>
+      <label>Напряжение (U) <span id="voltageValue" style="color:#00d2ff">6 В</span></label>
       <input type="range" id="voltage" min="1" max="12" value="6" step="0.5">
     </div>
-    
     <div class="control-group">
-      <label>Сопротивление (R) <span id="resistanceValue">10 Ом</span></label>
+      <label>Сопротивление (R) <span id="resistanceValue" style="color:#00d2ff">10 Ом</span></label>
       <input type="range" id="resistance" min="2" max="50" value="10" step="1">
     </div>
-    
     <div class="buttons">
-      <button class="btn-primary" id="toggleBtn">🔌 Замкнуть цепь</button>
-      <button class="btn-secondary" id="resetBtn">⟲ Сбросить</button>
+      <button class="action btn-blue" id="toggleBtn">🔌 Замкнуть цепь</button>
+      <button class="action btn-secondary" id="resetBtnChain">⟲ Сбросить</button>
     </div>
   </div>
-  
   <div class="info">
-    <div class="info-card">
-      <div class="value" id="currentValue">0.60</div>
-      <div class="label">Ток (А)</div>
-    </div>
-    <div class="info-card">
-      <div class="value" id="powerValue">3.60</div>
-      <div class="label">Мощность (Вт)</div>
-    </div>
-    <div class="info-card">
-      <div class="value" id="statusValue">Разомкнута</div>
-      <div class="label">Статус</div>
-    </div>
+    <div class="info-card"><div class="value" id="currentValue">0.60</div><div class="label">Ток (А)</div></div>
+    <div class="info-card"><div class="value" id="powerValue">3.60</div><div class="label">Мощность (Вт)</div></div>
+    <div class="info-card"><div class="value" id="statusValue" style="color:#ff5555;font-size:16px">Разомкнута</div><div class="label">Статус</div></div>
   </div>
-  
   <div class="formula">I = U / R    |    P = U × I</div>
-  
-  <div class="task">
-    🎯 <b>Задача:</b> Сделай так, чтобы лампочка горела ярко (мощность ≥ 8 Вт). Какие напряжение и сопротивление для этого нужны?
+  <div class="task">🎯 <b>Задача:</b> Сделай так, чтобы мощность была ≥ 8 Вт (лампочка горит ярко).</div>
+</div>
+
+<!-- СИМУЛЯТОР 2: МАЯТНИК -->
+<div class="lab" id="lab-pendulum">
+  <canvas id="canvas-pendulum" width="650" height="400"></canvas>
+  <div class="controls">
+    <div class="control-group">
+      <label>Длина нити <span id="lengthValue" style="color:#ffd700">50 см</span></label>
+      <input type="range" id="length" class="yellow-slider" min="10" max="100" value="50" step="1">
+    </div>
+    <div class="control-group">
+      <label>Начальный угол <span id="angleValue" style="color:#ffd700">30°</span></label>
+      <input type="range" id="angle" class="yellow-slider" min="5" max="80" value="30" step="1">
+    </div>
+    <div class="buttons">
+      <button class="action btn-yellow" id="startBtn">▶ Запустить</button>
+      <button class="action btn-secondary" id="resetBtnPendulum">⟲ Сбросить</button>
+    </div>
   </div>
+  <div class="info">
+    <div class="info-card yellow"><div class="value" id="periodValue">1.42</div><div class="label">Период (сек)</div></div>
+    <div class="info-card yellow"><div class="value" id="freqValue">0.70</div><div class="label">Частота (Гц)</div></div>
+    <div class="info-card yellow"><div class="value" id="timeValue">0.00</div><div class="label">Время (сек)</div></div>
+  </div>
+  <div class="formula yellow">T = 2π √(L / g)</div>
+  <div class="task yellow">🎯 <b>Задача:</b> Добейся периода колебаний ровно 2 секунды. Какая длина нити для этого нужна?</div>
 </div>
 
 <script>
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+// ============ ПЕРЕКЛЮЧАТЕЛЬ ТАБОВ ============
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.lab').forEach(l => l.classList.remove('active'));
+  if (tab === 'chain') {
+    document.querySelectorAll('.tab')[0].classList.add('active');
+    document.getElementById('lab-chain').classList.add('active');
+  } else {
+    document.querySelectorAll('.tab')[1].classList.add('active');
+    document.getElementById('lab-pendulum').classList.add('active');
+    drawPendulum();
+  }
+}
 
-let voltage = 6;
-let resistance = 10;
-let isClosed = false;
-let glowIntensity = 0; // 0..1 для анимации
+// ============ СИМУЛЯТОР 1: ЦЕПЬ ============
+const g = 9.81;
+const canvasChain = document.getElementById('canvas-chain');
+const ctxChain = canvasChain.getContext('2d');
+let voltage = 6, resistance = 10, isClosed = false, glowIntensity = 0;
 
 const voltageSlider = document.getElementById('voltage');
 const resistanceSlider = document.getElementById('resistance');
@@ -263,234 +135,193 @@ const currentValue = document.getElementById('currentValue');
 const powerValue = document.getElementById('powerValue');
 const statusValue = document.getElementById('statusValue');
 const toggleBtn = document.getElementById('toggleBtn');
-const resetBtn = document.getElementById('resetBtn');
+const resetBtnChain = document.getElementById('resetBtnChain');
 
-function calculateCurrent() {
-  return isClosed ? voltage / resistance : 0;
-}
-
-function calculatePower() {
-  return isClosed ? voltage * voltage / resistance : 0;
-}
-
-function updateInfo() {
-  const I = calculateCurrent();
-  const P = calculatePower();
+function updateChainInfo() {
+  const I = isClosed ? voltage / resistance : 0;
+  const P = isClosed ? voltage * voltage / resistance : 0;
   currentValue.textContent = I.toFixed(2);
   powerValue.textContent = P.toFixed(2);
   statusValue.textContent = isClosed ? 'Замкнута' : 'Разомкнута';
   statusValue.style.color = isClosed ? '#00ff88' : '#ff5555';
-  statusValue.style.fontSize = '16px';
-  
-  // Целевая яркость: чем больше мощность, тем ярче
   const target = isClosed ? Math.min(P / 10, 1) : 0;
   glowIntensity += (target - glowIntensity) * 0.15;
 }
 
-function drawBattery(x, y) {
-  ctx.fillStyle = '#ffd700';
-  ctx.fillRect(x - 30, y - 20, 60, 40);
-  ctx.fillStyle = '#1a1a2e';
-  ctx.fillRect(x - 15, y - 10, 30, 20);
-  ctx.fillStyle = '#ffd700';
-  ctx.font = 'bold 14px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('+', x - 22, y + 5);
-  ctx.fillText('−', x + 22, y + 5);
-  ctx.fillStyle = '#fff';
-  ctx.font = '10px sans-serif';
-  ctx.fillText('BAT', x, y + 32);
-}
-
-function drawLamp(x, y) {
-  // Яркость лампы
-  const brightness = glowIntensity;
+function drawChain() {
+  ctxChain.clearRect(0, 0, canvasChain.width, canvasChain.height);
+  const bx = 100, by = 200, lx = 500, ly = 150, sx = 300, sy = 340;
   
-  // Свечение
-  if (brightness > 0.05) {
-    const glow = ctx.createRadialGradient(x, y, 5, x, y, 80);
-    glow.addColorStop(0, `rgba(255, 255, 100, ${brightness * 0.8})`);
-    glow.addColorStop(0.5, `rgba(255, 200, 0, ${brightness * 0.3})`);
-    glow.addColorStop(1, 'rgba(255, 200, 0, 0)');
-    ctx.fillStyle = glow;
-    ctx.beginPath();
-    ctx.arc(x, y, 80, 0, Math.PI * 2);
-    ctx.fill();
-  }
+  ctxChain.strokeStyle = isClosed ? '#ffd700' : '#555';
+  ctxChain.lineWidth = 4; ctxChain.lineJoin = 'round';
   
-  // Колба лампы
-  ctx.beginPath();
-  ctx.arc(x, y, 30, 0, Math.PI * 2);
-  ctx.fillStyle = brightness > 0.05 
-    ? `rgba(255, 255, ${Math.floor(150 + brightness * 105)}, ${0.4 + brightness * 0.6})`
-    : 'rgba(255, 255, 255, 0.1)';
-  ctx.fill();
-  ctx.strokeStyle = brightness > 0.05 ? '#ffd700' : '#555';
-  ctx.lineWidth = 2;
-  ctx.stroke();
+  ctxChain.beginPath(); ctxChain.moveTo(bx + 30, by - 20); ctxChain.lineTo(bx + 30, 100);
+  ctxChain.lineTo(lx, 100); ctxChain.lineTo(lx, ly - 30); ctxChain.stroke();
   
-  // Нить накала
-  ctx.beginPath();
-  ctx.moveTo(x - 10, y + 10);
-  ctx.lineTo(x - 5, y - 5);
-  ctx.lineTo(x, y + 8);
-  ctx.lineTo(x + 5, y - 5);
-  ctx.lineTo(x + 10, y + 10);
-  ctx.strokeStyle = brightness > 0.05 
-    ? `rgba(255, 255, ${Math.floor(200 + brightness * 55)}, 1)` 
-    : '#666';
-  ctx.lineWidth = 2;
-  ctx.stroke();
+  ctxChain.beginPath(); ctxChain.moveTo(lx + 30, ly); ctxChain.lineTo(600, ly);
+  ctxChain.lineTo(600, sy); ctxChain.lineTo(sx + 20, sy); ctxChain.stroke();
   
-  // Цоколь
-  ctx.fillStyle = '#888';
-  ctx.fillRect(x - 10, y + 28, 20, 12);
-  ctx.fillStyle = '#666';
-  ctx.fillRect(x - 10, y + 34, 20, 4);
-}
-
-function drawSwitch(x, y) {
-  // Контакты
-  ctx.fillStyle = '#888';
-  ctx.beginPath();
-  ctx.arc(x - 20, y, 5, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(x + 20, y, 5, 0, Math.PI * 2);
-  ctx.fill();
+  ctxChain.beginPath(); ctxChain.moveTo(sx - 20, sy); ctxChain.lineTo(100, sy);
+  ctxChain.lineTo(100, by + 20); ctxChain.stroke();
   
-  // Рычаг
-  ctx.beginPath();
-  if (isClosed) {
-    ctx.moveTo(x - 20, y);
-    ctx.lineTo(x + 20, y);
-  } else {
-    ctx.moveTo(x - 20, y);
-    ctx.lineTo(x + 15, y - 25);
-  }
-  ctx.strokeStyle = isClosed ? '#00ff88' : '#ff5555';
-  ctx.lineWidth = 5;
-  ctx.lineCap = 'round';
-  ctx.stroke();
-  ctx.lineCap = 'butt';
-  
-  ctx.fillStyle = '#fff';
-  ctx.font = '10px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('SWITCH', x, y + 25);
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  const batteryX = 100, batteryY = 200;
-  const lampX = 500, lampY = 150;
-  const switchX = 300, switchY = 340;
-  
-  // Провода (фон)
-  ctx.strokeStyle = isClosed ? '#ffd700' : '#555';
-  ctx.lineWidth = 4;
-  ctx.lineJoin = 'round';
-  
-  // Верхний провод: батарея → лампа
-  ctx.beginPath();
-  ctx.moveTo(batteryX + 30, batteryY - 20);
-  ctx.lineTo(batteryX + 30, 100);
-  ctx.lineTo(lampX, 100);
-  ctx.lineTo(lampX, lampY - 30);
-  ctx.stroke();
-  
-  // Правый провод: лампа → выключатель
-  ctx.beginPath();
-  ctx.moveTo(lampX + 30, lampY);
-  ctx.lineTo(600, lampY);
-  ctx.lineTo(600, switchY);
-  ctx.lineTo(switchX + 20, switchY);
-  ctx.stroke();
-  
-  // Нижний провод: выключатель → батарея
-  ctx.beginPath();
-  ctx.moveTo(switchX - 20, switchY);
-  ctx.lineTo(100, switchY);
-  ctx.lineTo(100, batteryY + 20);
-  ctx.stroke();
-  
-  // Анимация тока (движущиеся точки)
   if (isClosed) {
     const t = Date.now() / 500;
     const speed = Math.min(voltage / resistance, 2);
-    
-    // Точки на верхнем проводе
     for (let i = 0; i < 8; i++) {
       const progress = ((t * speed + i / 8) % 1);
       let px, py;
       if (progress < 0.5) {
-        // От батареи до лампы
-        px = batteryX + 30 + (lampX - batteryX - 30) * (progress * 2);
-        py = 100;
+        px = bx + 30 + (lx - bx - 30) * (progress * 2); py = 100;
       } else {
-        px = lampX;
-        py = 100 + (lampY - 30 - 100) * ((progress - 0.5) * 2);
+        px = lx; py = 100 + (ly - 30 - 100) * ((progress - 0.5) * 2);
       }
-      ctx.beginPath();
-      ctx.arc(px, py, 4, 0, Math.PI * 2);
-      ctx.fillStyle = '#00ff88';
-      ctx.shadowColor = '#00ff88';
-      ctx.shadowBlur = 10;
-      ctx.fill();
-      ctx.shadowBlur = 0;
+      ctxChain.beginPath(); ctxChain.arc(px, py, 4, 0, Math.PI * 2);
+      ctxChain.fillStyle = '#00ff88'; ctxChain.shadowColor = '#00ff88'; ctxChain.shadowBlur = 10;
+      ctxChain.fill(); ctxChain.shadowBlur = 0;
     }
   }
   
-  // Элементы
-  drawBattery(batteryX, batteryY);
-  drawLamp(lampX, lampY);
-  drawSwitch(switchX, switchY);
+  // Батарея
+  ctxChain.fillStyle = '#ffd700'; ctxChain.fillRect(bx - 30, by - 20, 60, 40);
+  ctxChain.fillStyle = '#1a1a2e'; ctxChain.fillRect(bx - 15, by - 10, 30, 20);
+  ctxChain.fillStyle = '#ffd700'; ctxChain.font = 'bold 14px sans-serif'; ctxChain.textAlign = 'center';
+  ctxChain.fillText('+', bx - 22, by + 5); ctxChain.fillText('−', bx + 22, by + 5);
   
-  // Подписи параметров рядом с элементами
-  ctx.fillStyle = '#ffd700';
-  ctx.font = 'bold 12px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(voltage.toFixed(1) + ' В', batteryX, batteryY - 40);
-  ctx.fillText(resistance + ' Ом', lampX - 60, lampY + 50);
+  // Лампа
+  const brightness = glowIntensity;
+  if (brightness > 0.05) {
+    const glow = ctxChain.createRadialGradient(lx, ly, 5, lx, ly, 80);
+    glow.addColorStop(0, `rgba(255,255,100,${brightness * 0.8})`);
+    glow.addColorStop(0.5, `rgba(255,200,0,${brightness * 0.3})`);
+    glow.addColorStop(1, 'rgba(255,200,0,0)');
+    ctxChain.fillStyle = glow; ctxChain.beginPath(); ctxChain.arc(lx, ly, 80, 0, Math.PI * 2); ctxChain.fill();
+  }
+  ctxChain.beginPath(); ctxChain.arc(lx, ly, 30, 0, Math.PI * 2);
+  ctxChain.fillStyle = brightness > 0.05 ? `rgba(255,255,${Math.floor(150 + brightness * 105)},${0.4 + brightness * 0.6})` : 'rgba(255,255,255,0.1)';
+  ctxChain.fill();
+  ctxChain.strokeStyle = brightness > 0.05 ? '#ffd700' : '#555'; ctxChain.lineWidth = 2; ctxChain.stroke();
+  
+  // Нить лампы
+  ctxChain.beginPath(); ctxChain.moveTo(lx - 10, ly + 10); ctxChain.lineTo(lx - 5, ly - 5);
+  ctxChain.lineTo(lx, ly + 8); ctxChain.lineTo(lx + 5, ly - 5); ctxChain.lineTo(lx + 10, ly + 10);
+  ctxChain.strokeStyle = brightness > 0.05 ? `rgba(255,255,${Math.floor(200 + brightness * 55)},1)` : '#666';
+  ctxChain.lineWidth = 2; ctxChain.stroke();
+  
+  // Цоколь
+  ctxChain.fillStyle = '#888'; ctxChain.fillRect(lx - 10, ly + 28, 20, 12);
+  
+  // Выключатель
+  ctxChain.fillStyle = '#888';
+  ctxChain.beginPath(); ctxChain.arc(sx - 20, sy, 5, 0, Math.PI * 2); ctxChain.fill();
+  ctxChain.beginPath(); ctxChain.arc(sx + 20, sy, 5, 0, Math.PI * 2); ctxChain.fill();
+  ctxChain.beginPath();
+  if (isClosed) { ctxChain.moveTo(sx - 20, sy); ctxChain.lineTo(sx + 20, sy); }
+  else { ctxChain.moveTo(sx - 20, sy); ctxChain.lineTo(sx + 15, sy - 25); }
+  ctxChain.strokeStyle = isClosed ? '#00ff88' : '#ff5555'; ctxChain.lineWidth = 5; ctxChain.lineCap = 'round';
+  ctxChain.stroke(); ctxChain.lineCap = 'butt';
 }
 
-function animate() {
-  updateInfo();
-  draw();
-  requestAnimationFrame(animate);
+function animateChain() {
+  updateChainInfo();
+  drawChain();
+  requestAnimationFrame(animateChain);
 }
 
-voltageSlider.addEventListener('input', (e) => {
-  voltage = parseFloat(e.target.value);
-  voltageValue.textContent = voltage + ' В';
+voltageSlider.addEventListener('input', e => { voltage = parseFloat(e.target.value); voltageValue.textContent = voltage + ' В'; });
+resistanceSlider.addEventListener('input', e => { resistance = parseInt(e.target.value); resistanceValue.textContent = resistance + ' Ом'; });
+toggleBtn.addEventListener('click', () => { isClosed = !isClosed; toggleBtn.textContent = isClosed ? '🔌 Разомкнуть цепь' : '🔌 Замкнуть цепь'; });
+resetBtnChain.addEventListener('click', () => {
+  isClosed = false; voltage = 6; resistance = 10;
+  voltageSlider.value = 6; resistanceSlider.value = 10;
+  voltageValue.textContent = '6 В'; resistanceValue.textContent = '10 Ом';
+  toggleBtn.textContent = '🔌 Замкнуть цепь'; glowIntensity = 0;
 });
 
-resistanceSlider.addEventListener('input', (e) => {
-  resistance = parseInt(e.target.value);
-  resistanceValue.textContent = resistance + ' Ом';
+// ============ СИМУЛЯТОР 2: МАЯТНИК ============
+const canvasPend = document.getElementById('canvas-pendulum');
+const ctxPend = canvasPend.getContext('2d');
+let lengthCm = 50, angleDeg = 30, angleRad = 30 * Math.PI / 180, angleVel = 0, timeP = 0, running = false, lastTs = 0;
+
+const lengthSlider = document.getElementById('length');
+const angleSlider = document.getElementById('angle');
+const lengthValue = document.getElementById('lengthValue');
+const angleValue = document.getElementById('angleValue');
+const periodValue = document.getElementById('periodValue');
+const freqValue = document.getElementById('freqValue');
+const timeValue = document.getElementById('timeValue');
+const startBtn = document.getElementById('startBtn');
+const resetBtnPendulum = document.getElementById('resetBtnPendulum');
+
+function calcPeriod() { return 2 * Math.PI * Math.sqrt((lengthCm / 100) / g); }
+
+function updatePendInfo() {
+  const T = calcPeriod();
+  periodValue.textContent = T.toFixed(2);
+  freqValue.textContent = (1 / T).toFixed(2);
+}
+
+function drawPendulum() {
+  ctxPend.clearRect(0, 0, canvasPend.width, canvasPend.height);
+  const px = canvasPend.width / 2, py = 80;
+  const lenPx = (lengthCm / 100) * 300;
+  const bobX = px + lenPx * Math.sin(angleRad);
+  const bobY = py + lenPx * Math.cos(angleRad);
+  
+  // Потолок
+  ctxPend.fillStyle = 'rgba(255,255,255,0.1)'; ctxPend.fillRect(0, 60, canvasPend.width, 20);
+  ctxPend.fillStyle = 'rgba(255,255,255,0.3)';
+  for (let i = 0; i < canvasPend.width; i += 40) ctxPend.fillRect(i, 60, 20, 20);
+  
+  // Нить
+  ctxPend.beginPath(); ctxPend.moveTo(px, py); ctxPend.lineTo(bobX, bobY);
+  ctxPend.strokeStyle = '#aaa'; ctxPend.lineWidth = 2; ctxPend.stroke();
+  
+  // Точка
+  ctxPend.beginPath(); ctxPend.arc(px, py, 8, 0, Math.PI * 2); ctxPend.fillStyle = '#666'; ctxPend.fill();
+  
+  // Шар
+  const grad = ctxPend.createRadialGradient(bobX - 5, bobY - 5, 5, bobX, bobY, 25);
+  grad.addColorStop(0, '#ffd700'); grad.addColorStop(1, '#ff8c00');
+  ctxPend.beginPath(); ctxPend.arc(bobX, bobY, 22, 0, Math.PI * 2); ctxPend.fillStyle = grad; ctxPend.fill();
+  ctxPend.shadowColor = '#ffd700'; ctxPend.shadowBlur = 20; ctxPend.fill(); ctxPend.shadowBlur = 0;
+  
+  // Траектория
+  ctxPend.beginPath(); ctxPend.arc(px, py, lenPx, Math.PI / 2 - 0.8, Math.PI / 2 + 0.8);
+  ctxPend.strokeStyle = 'rgba(255,255,255,0.05)'; ctxPend.lineWidth = 1;
+  ctxPend.setLineDash([5, 5]); ctxPend.stroke(); ctxPend.setLineDash([]);
+}
+
+function animatePendulum(ts) {
+  if (!running) return;
+  if (lastTs === 0) lastTs = ts;
+  const dt = Math.min((ts - lastTs) / 1000, 0.05);
+  lastTs = ts;
+  timeP += dt;
+  const L = lengthCm / 100;
+  const acc = -(g / L) * angleRad;
+  angleVel += acc * dt;
+  angleRad += angleVel * dt;
+  timeValue.textContent = timeP.toFixed(2);
+  drawPendulum();
+  requestAnimationFrame(animatePendulum);
+}
+
+lengthSlider.addEventListener('input', e => { lengthCm = parseInt(e.target.value); lengthValue.textContent = lengthCm + ' см'; updatePendInfo(); if (!running) drawPendulum(); });
+angleSlider.addEventListener('input', e => { angleDeg = parseInt(e.target.value); angleValue.textContent = angleDeg + '°'; if (!running) { angleRad = angleDeg * Math.PI / 180; drawPendulum(); } });
+startBtn.addEventListener('click', () => {
+  if (running) { running = false; startBtn.textContent = '▶ Запустить'; }
+  else { running = true; lastTs = 0; angleRad = angleDeg * Math.PI / 180; angleVel = 0; startBtn.textContent = '⏸ Пауза'; requestAnimationFrame(animatePendulum); }
+});
+resetBtnPendulum.addEventListener('click', () => {
+  running = false; startBtn.textContent = '▶ Запустить'; timeP = 0;
+  angleRad = angleDeg * Math.PI / 180; angleVel = 0; timeValue.textContent = '0.00';
+  drawPendulum();
 });
 
-toggleBtn.addEventListener('click', () => {
-  isClosed = !isClosed;
-  toggleBtn.textContent = isClosed ? '🔌 Разомкнуть цепь' : '🔌 Замкнуть цепь';
-});
-
-resetBtn.addEventListener('click', () => {
-  isClosed = false;
-  voltage = 6;
-  resistance = 10;
-  voltageSlider.value = 6;
-  resistanceSlider.value = 10;
-  voltageValue.textContent = '6 В';
-  resistanceValue.textContent = '10 Ом';
-  toggleBtn.textContent = '🔌 Замкнуть цепь';
-  glowIntensity = 0;
-  updateInfo();
-  draw();
-});
-
-animate();
+// ============ ИНИЦИАЛИЗАЦИЯ ============
+updatePendInfo();
+animateChain();
+drawPendulum();
 </script>
 
 </body>
